@@ -1,0 +1,24 @@
+# Environment and Secrets
+.env
+.env.local
+.env.*.local
+*.env
+
+# IDE and OS
+.idea/
+.vscode/
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
+
+# Logs & Temporary files
+*.log
+scratch/
+scratch_*
+
+# Build outputs
+target/
+.next/
+out/
+node_modules/

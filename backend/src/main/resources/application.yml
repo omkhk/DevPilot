@@ -1,0 +1,54 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: devpilot-backend
+
+  datasource:
+    url: jdbc:postgresql://localhost:5433/devpilot
+    username: postgres
+    password: ${DB_PASSWORD:1809}
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: false
+
+  ai:
+    openai:
+      base-url: https://generativelanguage.googleapis.com/v1beta/openai
+      api-key: ${GEMINI_API_KEY:}
+      chat:
+        options:
+          model: gemini-3.6-flash
+      embedding:
+        options:
+          model: gemini-embedding-001
+    vectorstore:
+      pgvector:
+        initialize-schema: true
+        dimensions: 768
+
+  security:
+    oauth2:
+      client:
+        registration:
+          github:
+            client-id: ${GITHUB_CLIENT_ID:}
+            client-secret: ${GITHUB_CLIENT_SECRET:}
+            scope:
+              - read:user
+              - repo
+
+app:
+  frontend-url: ${FRONTEND_URL:http://localhost:3000}
+  token-encryptor-password: ${TOKEN_ENCRYPTOR_PASSWORD:devpilot-secret-password-123}
+  token-encryptor-salt: ${TOKEN_ENCRYPTOR_SALT:12345678}
+  cors:
+    allowed-origins: ${CORS_ALLOWED_ORIGINS:http://localhost:3000}
+  github:
+    api-delay-ms: 50
+  indexing:
+    max-file-bytes: 102400
